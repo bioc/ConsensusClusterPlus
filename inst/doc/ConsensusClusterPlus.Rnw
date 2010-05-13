@@ -233,4 +233,14 @@ Note: pearson is suggested for heirarchical clustering and euclidean for kmeans.
 
 \end{thebibliography} 
 
+
+\subsection{Changes}
+\begin{itemize}
+
+\item Version 1.0.1.  Item-consensus calculation was corrected.  Consensus matric heat maps are now guaranteed to correspond to the scale.
+
+\end{itemize}
+
+
+
 \end{document}

@@ -53,12 +53,16 @@ calcICL returns a list of two elements clusterConsensus and itemConsensus corres
 
 }
 
-\author{ Matt Wilkerson mwilkers@med.unc.edu
-
+\author{ Matt Wilkerson mdwilkerson@outlook.com
 Peter Waltman waltman@soe.ucsc.edu
  }
 
 \references{
+Please cite the ConsensusClusterPlus publication, below, if you use ConsensusClusterPlus in a publication or presentation:
+Wilkerson, M.D., Hayes, D.N. (2010). ConsensusClusterPlus: a class discovery tool with confidence assessments and item tracking. Bioinformatics, 2010 Jun 15;26(12):1572-3. 
+
+
+Original description of the Consensus Clustering method:
 Monti, S., Tamayo, P., Mesirov, J., Golub, T. (2003) Consensus Clustering:
 A Resampling-Based Method for Class Discovery and Visualization of Gene
 Expression Microarray Data. Machine Learning, 52, 91-118.

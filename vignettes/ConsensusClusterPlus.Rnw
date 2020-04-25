@@ -50,7 +50,7 @@ mads=apply(d,1,mad)
 d=d[rev(order(mads))[1:5000],]
 @
 If one wants to transform or normalize their data, they can easily do so using other Bioconductor methods or a simple statement.
-We chose to use the default settings of the agglomerative heirarchical clustering algorithm using Pearson correlation distance, so it is appropriate to gene median center d using this simple statement:
+We chose to use the default settings of the agglomerative hierarchical clustering algorithm using Pearson correlation distance, so it is appropriate to gene median center d using this simple statement:
 
 <<>>=
 d = sweep(d,1, apply(d,1,median,na.rm=T))
@@ -60,7 +60,7 @@ d is now ready for \texttt{ConsensusClusterPlus} analysis.
 
 \subsection{Running \texttt{ConsensusClusterPlus}}
 For this tutorial, we selected 80\% item resampling (pItem), 80\% gene resampling (pFeature),
-a maximum evalulated k of 6 so that cluster counts of 2,3,4,5,6 are evaluated (maxK), 50 resamplings (reps), agglomerative heirarchical clustering algorithm (clusterAlg)
+a maximum evalulated k of 6 so that cluster counts of 2,3,4,5,6 are evaluated (maxK), 50 resamplings (reps), agglomerative hierarchical clustering algorithm (clusterAlg)
 upon 1- Pearson correlation distances (distance), gave our output a title (title), and opted to have graphical results written to png files.  We also used a specific random seed so that this example is repeatable (seed).
 \\
 \\
@@ -211,7 +211,7 @@ could support that this cluster is an outlier cluster.  Decisions such as these 
 #myDistFunc = function(x){ dist(x,method="manhattan")}
 #ConsensusClusterPlus(d,maxK=4,reps=100,pItem=0.8,pFeature=1,title="example3",distance="myDistFunc",clusterAlg="pam")
 @
-\item \textbf{clusterAlg} This option specifies the type of clustering algorithm to use: "hc" for heirarchical clustering, "pam" for partioning around medoids, "km" for kmeans.  Alternatively, one can supply their own clustering function, which should accept a distance matrix and a cluster number as its arguments and returns vector of cluster assignments having the same order as the distance matrix columns.
+\item \textbf{clusterAlg} This option specifies the type of clustering algorithm to use: "hc" for hierarchical clustering, "pam" for partioning around medoids, "km" for kmeans.  Alternatively, one can supply their own clustering function, which should accept a distance matrix and a cluster number as its arguments and returns vector of cluster assignments having the same order as the distance matrix columns.
 For example, this simple function executes divisive clustering using the diana function from the cluster package and returns the expected object.  The last line shows an example of how this could be used.
 <<>>=
 #library(cluster)
@@ -222,9 +222,9 @@ For example, this simple function executes divisive clustering using the diana f
 #}
 #ConsensusClusterPlus(d,clusterAlg="dianaHook",distance="pearson",...)
 @
-\item \textbf{update on kmeans options} "km" option performs kmeans clustering directly on a data matrix, with items and features resampled.  "kmdist" performs kmeans clustering on a distance matrix calcualted from the resampled data.  In  versions prior to 1.11.1, the "km" option refers to kmdist.  Users wishing to use this kmeans invocation in versions 1.11.1 or later should use option kmdist.
-\item \textbf{innerLinkage} This option specifies the linkage method to use in iterative agglomerative heirarchical clustering.  Not applicable to other cluster algorithms.
-\item \textbf{finalLinkage} This option specifies the linkage method to use in the final agglomerative heirarchical clustering.
+\item \textbf{update on kmeans options} "km" option performs kmeans clustering directly on a data matrix, with items and features resampled.  
+\item \textbf{innerLinkage} This option specifies the linkage method to use in iterative agglomerative hierarchical clustering.  Not applicable to other cluster algorithms.
+\item \textbf{finalLinkage} This option specifies the linkage method to use in the final agglomerative hierarchical clustering.
 \item \textbf{distance} This option specifies the distance metric to use: "pearson" for 1-Pearson correlation coefficient, "spearman" for 1-Spearman correlation coefficient, "euclidean" for Euclidean distance.
 \item \textbf{tmyPal} character vector of ordered colors to use for consensus matrix.  If not specified, a series of white to blue colors is used.
 \item \textbf{writeTable} boolean. If TRUE, write consensus matrices, ICL, and log to file.  
@@ -246,9 +246,11 @@ For example, this simple function executes divisive clustering using the diana f
 
 \subsection{Changes}
 \begin{itemize}
-\item Version 1.0.1.  Item-consensus calculation was corrected.  Consensus matric heat maps are now guaranteed to correspond to the scale.
+\item Version 1.0.1.  Item-consensus calculation was corrected.  Consensus matrix heat maps are now guaranteed to correspond to the scale.
 \item Version 1.5.1.  Version 1.0.1 changes were re-incorporated into Bioc 2.9, 2.8.  Version 1.0.1 was part of Bioc 2.6, but not part of Bioc 2.7.  
 \item Version 1.11.1. For large datasets, the input data (d) was modified to also accept a distance matrix which reduces computation time, and plotBMP was added a plot type so that large consensus matrices can be plotted. Internal data structures were modified to increase speed.  Distance metric options expanded ("maximum", "manhattan", "canberra", "binary","minkowski" from dist) and custom distance function option added.  Partitioning Around Mediods clustering (from cluster package) was added as a clustering algorithm.  Kmeans invocation was changed to run on the data matrix by default.  Kmeans invocation on a distance matrix is now possible by kmdist.  
+\item Version Version 1.35.0 Added CITATION file, updated references, and man pages.
+\item Version 1. Breif R code update for compatibilty with R 4.0.  Deprecated kmdist clustering option.
 \end{itemize}
 
 

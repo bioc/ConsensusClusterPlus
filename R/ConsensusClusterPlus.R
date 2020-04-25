@@ -17,6 +17,7 @@ ConsensusClusterPlus <- function( d=NULL,
                                   weightsFeature=NULL,
                                   verbose=F,
 				  corUse="everything" ) {
+
   ##description: runs consensus subsamples 
   if(is.null(seed)==TRUE){
     seed=timeSeed = as.numeric(Sys.time())
@@ -28,7 +29,7 @@ ConsensusClusterPlus <- function( d=NULL,
 
   if(is.null(ml)==TRUE){
     
-    if ( ! class( d ) %in% c( "dist", "matrix", "ExpressionSet" ) ) {
+    if ( ! any(class( d ) %in% c( "dist", "matrix", "ExpressionSet" )) ) {
       stop("d must be a matrix, distance object or ExpressionSet (eset object)")
     }
 
@@ -43,26 +44,24 @@ ConsensusClusterPlus <- function( d=NULL,
       }
       
       if ( ( ! is.null( pFeature ) ) && ( pFeature < 1 ) ) {
-        message( "Cannot use the pFeatures parameter when specifying a distance matrix as the data object\n" )
+        message( "Cannot use the pFeatures parameter when specifying a distance matrix as the data object, setting pFeature to 1.\n" )
         pFeature <- 1
       }
       if ( ! is.null( weightsFeature ) ) {
         message( "Cannot use the weightsFeature parameter when specifying a distance matrix as the data object\n" )
         weightsFeature <- NULL
       }
-      if ( clusterAlg == "km" ) {
-        message( "Note: k-means will cluster the distance matrix you provided.  This is similar to kmdist option when suppling a data matrix")
-        ##d <- as.matrix( d )  #this is now done w/in ccRun
-      }
+
     } else {
       if ( is.null( distance ) ) {
         ## we should never get here, but just in case
+	message("no specified distance, setting distance to Pearson");
         distance <- "pearson"
       }
     }
 
     if ( ( clusterAlg == "km" ) && inherits( distance, "character" ) && ( distance != "euclidean" ) ) {
-      message( "Note: The km (kmeans) option only supports a euclidean distance metric when supplying a data matrix.  If you want to cluster a distance matrix using k-means use the 'kmdist' option, or use a different algorithm such as 'hc' or 'pam'.  Changing distance to euclidean")
+      message( "Note: The km (kmeans) option only supports a euclidean distance metric when supplying a data matrix.  If you want to cluster a distance matrix, use a different algorithm such as 'hc' or 'pam'.  Changing distance to euclidean")
       distance <- 'euclidean'
     }
 
@@ -166,7 +165,7 @@ ConsensusClusterPlus <- function( d=NULL,
     message("clustered")	
     ct = cutree(hc,tk)
     names(ct) = colnames(d)
-    if(class(d)=="dist"){
+    if(any(class(d)=="dist")){
       names(ct) = colnames(as.matrix(d))
     }
     c = fm
@@ -441,9 +440,7 @@ ccRun <- function( d=d,
         ##prune to k for hc
         this_assignment = cutree(this_cluster,k)
 
-      }else if(clusterAlg=="kmdist"){
-	this_assignment = kmeans(this_dist, k, iter.max = 10, nstart = 1, algorithm = c("Hartigan-Wong") )$cluster
-
+      
       }else if(clusterAlg=="km"){
         ##this_dist should now be a matrix corresponding to the result from sampleCols
         this_assignment <- kmeans( t( this_dist ),

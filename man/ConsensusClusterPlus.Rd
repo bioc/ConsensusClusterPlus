@@ -20,10 +20,10 @@ calcICL(res,title="untitled_consensus_cluster",plot=NULL,writeTable=FALSE)
   \item{reps}{integer value. number of subsamples.  }
   \item{pItem}{numerical value. proportion of items to sample.  }
   \item{pFeature}{numerical value. proportion of features to sample.  }
-  \item{clusterAlg}{character value. cluster algorithm.  'hc' heirarchical (hclust), 'pam' for paritioning around medoids, 'km' for k-means upon data matrix, 'kmdist' for k-means upon distance matrices (former km option), or a function that returns a clustering.  See example and vignette for more details. }
+  \item{clusterAlg}{character value. cluster algorithm.  'hc' hierarchical (hclust), 'pam' for paritioning around medoids, 'km' for k-means upon data matrix, or a function that returns a clustering.  See example and vignette for more details. }
   \item{title}{ character value for output directory. Directory is created only if plot is not NULL or writeTable is TRUE. This title can be an abosulte or relative path.  }
-  \item{innerLinkage}{heirarchical linkage method for subsampling. }
-  \item{finalLinkage}{heirarchical linkage method for consensus matrix. }
+  \item{innerLinkage}{hierarchical linkage method for subsampling. }
+  \item{finalLinkage}{hierarchical linkage method for consensus matrix. }
   \item{distance}{character value. 'pearson': (1 - Pearson correlation), 'spearman' (1 - Spearman correlation), 'euclidean', 'binary', 'maximum', 'canberra', 'minkowski" or custom distance function.   }
   \item{ml}{optional. prior result, if supplied then only do graphics and tables.}
   \item{tmyPal}{optional character vector of colors for consensus matrix}
@@ -40,7 +40,7 @@ calcICL(res,title="untitled_consensus_cluster",plot=NULL,writeTable=FALSE)
 ConsensusClusterPlus implements the Consensus Clustering algorithm of Monti, et al (2003) and extends this method with new functionality and visualizations.
 Its utility is to provide quantitative stability evidence for determing a cluster count and cluster membership in an unsupervised analysis.
 
-ConsensusClusterPlus takes a numerical data matrix of items as columns and rows as features.  This function subsamples this matrix according to pItem, pFeature, weightsItem, and weightsFeature, and clusters the data into 2 to maxK clusters by clusterArg clusteringAlgorithm.  Agglomerative heirarchical (hclust) and kmeans clustering are supported by an option see above.  For users wishing to use a different clustering algorithm for which many are available in R, one can supply their own clustering algorithm as a simple programming hook - see the second commented-out example that uses divisive heirarchical clustering.
+ConsensusClusterPlus takes a numerical data matrix of items as columns and rows as features.  This function subsamples this matrix according to pItem, pFeature, weightsItem, and weightsFeature, and clusters the data into 2 to maxK clusters by clusterArg clusteringAlgorithm.  Agglomerative hierarchical (hclust) and kmeans clustering are supported by an option see above.  For users wishing to use a different clustering algorithm for which many are available in R, one can supply their own clustering algorithm as a simple programming hook - see the second commented-out example that uses divisive hierarchical clustering.
 
 For a detailed description of usage, output and images, see the vignette by: openVignette().
 

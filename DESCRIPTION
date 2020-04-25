@@ -2,8 +2,8 @@ Package: ConsensusClusterPlus
 Type: Package
 Imports: Biobase, ALL, graphics, stats, utils, cluster
 Title: ConsensusClusterPlus
-Version: 1.51.0
-Date: 2015-12-29
+Version: 1.52.0
+Date: 2020-4-24
 Author: Matt Wilkerson <mdwilkerson@outlook.com>, Peter Waltman
         <waltman@soe.ucsc.edu>
 Maintainer: Matt Wilkerson <mdwilkerson@outlook.com>
